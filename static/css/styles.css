@@ -1,0 +1,512 @@
+/**{*/
+/*    border: 1px dotted red; !important;*/
+/*}*/
+
+html, body {
+    height: 100%;
+    min-width: 1080px;
+}
+
+header {
+    height: 80px;
+    width: 100%;
+}
+
+section {
+    min-height: calc(100% - 160px);
+    background: #edf0f5;
+}
+
+.maincon {
+    padding: 20px;
+}
+
+/*그룹*/
+.con {
+    position: relative;
+    width: 100%;
+    background: #FFFFFF;
+    padding-block: 10px;
+    padding-inline: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+    border: 1px solid #c6c7c9;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    border-radius: 10px;
+}
+
+footer {
+    height: 80px;
+    background-color: #ddd;
+    text-align: center;
+}
+
+/*navbar*/
+.toplogo {
+    width: 30px;
+    height: 30px;
+}
+
+.nav-wrap {
+    background: #2a3954;
+    height: 80px;
+    line-height: 80px;
+    display: block;
+}
+
+.nav-wrap .logo {
+    float: left;
+    margin-inline: 20px;
+}
+
+.nav-wrap .user {
+    float: right;
+    margin-right: 20px;
+}
+
+.nav-wrap .logo img {
+    width: 150px;
+    height: 55px;
+}
+
+.nav-wrap .logo img:last-child {
+    display: none;
+}
+
+.nav-wrap .logo:hover img:first-child {
+    display: none;
+}
+
+.nav-wrap .logo:hover img:last-child {
+    display: inline-block;
+}
+
+.nav-wrap .menu-bar {
+    float: left;
+    margin: 0;
+}
+
+.nav-wrap .menu {
+    float: left;
+    list-style: none;
+    border-radius: 5px;
+    color: #ffffff;
+    padding: 0 13px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    text-decoration-line: none;
+    display: list-item;
+}
+
+.nav-wrap .menu:hover {
+    background: #0086d1;
+}
+
+/*maincon*/
+.maincon {
+    display: inline-block;
+    padding: 20px;
+    background: #edf0f5;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*페이지 타이틀*/
+.pagetitle {
+    width: 100%;
+    font-size: 1.3em;
+    font-weight: 600;
+    padding-block: 10px;
+    padding-inline: 10px;
+    margin-bottom: 20px;
+    display: inline-block;
+    border-bottom: 1px solid #2a3954;
+}
+
+.searchtable {
+    width: 100%;
+}
+
+.searchrow {
+    border-top: 1px solid #DFDFDE;
+    height: 50px;
+}
+
+.searchrow th {
+    text-align: center;
+}
+
+.date_btn {
+    width: 50px;
+    margin-left: 5px;
+}
+
+.searchcheckbox {
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.searchcheckbox:checked {
+    background-color: #0c4128;
+}
+
+/*그룹*/
+.con {
+    position: relative;
+    width: 100%;
+    background: #FFFFFF;
+    padding-block: 10px;
+    padding-inline: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+    border: 1px solid #c6c7c9;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    border-radius: 10px;
+}
+
+.contitle {
+    width: 100%;
+    font-size: 1em;
+    font-weight: 300;
+    padding-block: 10px;
+    padding-inline: 10px;
+    margin-bottom: 20px;
+    display: inline-block;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.contitle * {
+    margin-right: 10px;
+}
+
+.aboxrow {
+    height: 80px;
+}
+
+.aboxcontext {
+    float: left;
+    color: #0a53be;
+    line-height: 80px;
+    padding-right: 10px;
+    margin-right: 10px;
+    border-right: 1px solid #dcdcdc;
+}
+
+.abox {
+    position: relative;
+    background: #FFFFFF;
+    padding-inline: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    border-radius: 5px;
+    text-decoration: none;
+    width: 190px;
+    height: 80px;
+}
+
+.aboxicon {
+    line-height: 80px;
+    width: 40px;
+    margin-right: 20px;
+    color: #2a3954;
+    float: left;
+}
+
+.aboxtext {
+    padding-top: 10px;
+    float: left;
+}
+
+
+/*상단 이동*/
+.scrolltop {
+    display: none;
+    width: 40%;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+}
+
+.scroll {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background: #fff;
+    padding: 10px;
+    text-align: center;
+    margin: 0 0 0 0;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+/*버튼 테스트*/
+.con button {
+    font-size: 1em;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.date_condition {
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    color: #2a3954;
+    border: 2px solid #1A374D;
+}
+
+.date_picker {
+    width: 150px;
+    height: 30px;
+    font-size: 15px;
+    color: #2a3954;
+    border: 2px solid #1A374D;
+    border-radius: 5px;
+}
+
+.aboxwrap a:visited {
+    color: #2a3954;
+    text-decoration: none;
+}
+
+.aboxwrap a:hover {
+    color: #2a3954;
+}
+
+.ordercnt {
+    color: #0a53be;
+    font-size: x-large;
+}
+
+a.user {
+    color: #FFFFFF;
+}
+
+.edger {
+    border-radius: 5px;
+}
+
+/*푸터 영역*/
+
+.footer-icon {
+    color: #ecedee;
+    padding: 5px;
+}
+
+.footer {
+    background-color: #2a3954;
+    width: 100%;
+    text-align: left;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 35px;
+    margin-top: 30px;
+    height: 310px;
+}
+
+.footer .footer-left,
+.footer .footer-center,
+.footer .footer-right {
+    display: inline-block;
+    vertical-align: top;
+    float: right;
+    margin-top: 20px;
+}
+
+
+/* footer left*/
+
+.footer .footer-left {
+    width: 33%;
+    padding-right: 15px;
+}
+
+.footer .about {
+    line-height: 20px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.footer .about span {
+    display: block;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.footer .icons {
+    margin-top: 40px;
+}
+
+.footer .icons a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    background-color: #33383b;
+    border-radius: 2px;
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 35px;
+    margin-right: 3px;
+    margin-bottom: 5px;
+}
+
+
+/* footer center*/
+
+.footer .footer-center {
+    width: 30%;
+}
+
+.footer .footer-center i {
+    background-color: #33383b;
+    color: #ffffff;
+    font-size: 25px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 42px;
+    margin: 10px 15px;
+    vertical-align: middle;
+}
+
+.footer .footer-center i.fa-envelope {
+    font-size: 17px;
+    line-height: 38px;
+}
+
+.footer .footer-center p {
+    display: inline-block;
+    color: #ffffff;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.footer .footer-center p span {
+    display: block;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.footer .footer-center p a {
+    color: #0099ff;
+    text-decoration: none;
+}
+
+
+/* footer right*/
+
+.footer .footer-right {
+    width: 35%;
+}
+
+.footer h2 {
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.footer h2 span {
+    color: #0099ff;
+}
+
+.footer .menu {
+    color: #ffffff;
+    margin: 20px 0 12px;
+    padding: 0;
+}
+
+.footer .menu a {
+    display: inline-block;
+    line-height: 1.8;
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer .menu a:hover {
+    color: #0099ff;
+}
+
+.footer .name {
+    color: #0099ff;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+}
+
+@media (max-width: 767px) {
+    .footer {
+        font-size: 14px;
+    }
+
+    .footer .footer-left,
+    .footer .footer-center,
+    .footer .footer-right {
+        display: block;
+        width: 100%;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .footer .footer-center i {
+        margin-left: 0;
+    }
+}
+
+ul {
+    list-style: none;
+    padding: 10px;
+    margin: 0px;
+    width: 100%;
+}
+
+li {
+    list-style: none;
+    padding: 5px;
+    margin: 0px;
+    border-bottom: 1px solid;
+    height: auto;
+}
+
+@keyframes blink-effect {
+    50% {
+        opacity: 0;
+    }
+}
+
+#blink {
+    animation: blink-effect 1s step-end infinite;
+    font-weight: bolder;
+    color: #FF1700;
+}
+
+.main_note {
+    list-style: none;
+    padding: 10px;
+    margin: 0px;
+    width: 100%;
+}
+
+.sub_note {
+    list-style: none;
+    padding: 5px;
+    margin: 0px;
+    border-bottom: 1px solid;
+    height: auto;
+}

@@ -1,0 +1,347 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="maincon">
+        {% include 'B2C/ordermodal.html' %}
+        <div class="pagetitle">
+            <span>주문 관리</span>
+            <a style="background: #2a3954; border: #2a3954; color: #ffffff" class="btn btn-secondary btn-sm"
+               id="update_order"
+               href="{% url 'B2C:updateorder' %}">
+                <i class="bi bi-arrow-clockwise"></i> 수동 갱신
+            </a>
+        </div>
+
+        <div class="con aboxwrap">
+            <div class="aboxrow">
+                <div class="aboxcontext" style="color: #be0a0a">
+                    <strong>먼저 확인해주세요</strong>
+                </div>
+                <a class="abox" boxtype="11" href="#">
+                    <span class="aboxicon"><i class="fa-solid fa-house-circle-exclamation fa-2x"></i></span>
+                    <div class="aboxtext">
+                        <div>주소확인</div>
+                        <strong class="ordercnt" style="color: #be0a0a">{{ aboxcount.11|default_if_none:'0' }}</strong>
+                        <span> 건</span>
+                    </div>
+                </a>
+                <a class="abox" boxtype="12" href="#">
+                    <span class="aboxicon"><i class="fa-solid fa-phone fa-2x"></i></span>
+                    <div class="aboxtext">
+                        <div>제주, 소스</div>
+                        <strong class="ordercnt" style="color: #be0a0a">{{ aboxcount.12|default_if_none:'0' }}</strong>
+                        <span> 건</span>
+                    </div>
+                </a>
+                <a class="abox" boxtype="13" href="#">
+                    <span class="aboxicon"><i class="fa-solid fa-ban fa-2x"></i></span>
+                    <div class="aboxtext">
+                        <div class="">취소 요청</div>
+                        <strong class="ordercnt" style="color: #be0a0a">{{ aboxcount.13|default:'0' }}</strong>
+                        <span> 건</span>
+                    </div>
+                </a>
+            </div>
+            <hr style="margin: 10px;">
+            <div class="aboxrow">
+                <div class="aboxcontext">
+                    <strong>처리 진행해주세요 </strong>
+                </div>
+                <a class="abox" boxtype="21" href="#">
+                    <div class="aboxicon"><i class="fa-solid fa-calendar-day fa-2x"></i></div>
+                    <div class="aboxtext">
+                        <div>출고일 지정</div>
+                        <strong class="ordercnt">{{ aboxcount.21|default:'0' }}</strong>
+                        <span> 건</span>
+                    </div>
+                </a>
+                <a class="abox" boxtype="22" href="#">
+                    <span class="aboxicon"><i class="fa-solid fa-calendar-check fa-2x"></i></span>
+                    <div class="aboxtext">
+                        <div>출고 대기</div>
+                        <strong class="ordercnt">{{ aboxcount.22|default:'0' }}</strong>
+                        <span> 건</span>
+                    </div>
+                </a>
+                <a class="abox" boxtype="23" href="#">
+                    <span class="aboxicon"><i class="fa-solid fa-truck-arrow-right fa-2x"></i></span>
+                    <div class="aboxtext">
+                        <div>작업 지시</div>
+                        <strong class="ordercnt">{{ aboxcount.23|default:'0' }}</strong>
+                        <span> 건</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="con">
+            <form id="searchform" onsubmit="return false">
+                <small style="margin-left: 5px">상세조건 검색</small>
+                <table class="searchtable">
+                    <tr class="searchrow">
+                        <td>
+                            <label for="statecheckboxall" class="searchcheckbox">
+                                <input type="checkbox" id="statecheckboxall" checked> 전체
+                            </label>
+                            <label class="searchcheckbox">
+                                <input type="checkbox" name="statecheckbox" value="주문수집" checked> 주문수집
+                            </label>
+                            <label class="searchcheckbox">
+                                <input type="checkbox" name="statecheckbox" value="작업지시" checked> 작업지시
+                            </label>
+                            <label class="searchcheckbox">
+                                <input type="checkbox" name="statecheckbox" value="출고완료" checked> 출고완료
+                            </label>
+                            <label class="searchcheckbox">
+                                <input type="checkbox" name="statecheckbox" value="주문취소" checked> 주문취소
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="searchrow">
+                        <td>
+
+                                <select class="date_condition edger" name="datestate">
+                                    <option  value="0" selected>수집일</option>
+                                </select>
+
+                            <input class="date_picker" type="date" id="date1" name="date1"> -
+                            <input class="date_picker" type="date" value="{{ today|date:'Y-m-d' }}" name="date2"
+                                   id="date2">
+                            <button class="date_btn" type="button" onclick="date_cha(0)">오늘
+                            </button>
+                            <button class="date_btn" type="button" onclick="date_cha(1)">어제
+                            </button>
+                            <button class="date_btn" type="button" onclick="date_cha(7)">7일
+                            </button>
+                            <button class="date_btn" type="button" onclick="date_cha(30)">30일
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="searchrow">
+                        <td>
+                            <input hidden="hidden"/>
+                            <input name="kw" class="kw edger" type="text" placeholder="검색어">
+                            <button id="searchbtn">검색</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div style="text-align: center; margin-top: 10px">
+
+            </div>
+        </div>
+
+
+        <div class="con">
+            <div class="contitle">
+                <span>목록 (총 <b id="total_count" style="margin: 0;"></b>개)</span>
+                <select class="test_select edger" name="listnum" id="listnum">
+                    <option value="20" selected>20개씩 보기</option>
+                    <option value="50">50개씩 보기</option>
+                    <option value="100">100개씩 보기</option>
+                    <option value="500">500개씩 보기</option>
+                    <option value="all">모두 보기</option>
+                </select>
+                <button class="postdataBtn" type="button" id="createworkbtn" value="작업지시" style="display: none">작업지시서 생성</button>
+                <button class="postdataBtn" type="button" value="주문수집">주문 수집</button>
+            </div>
+            <div id="grid">
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block script %}
+    <script type='text/javascript'>
+
+
+
+
+        $('#update_order').click(function () {
+            $('.loader').show();
+        });
+
+        $('.ordersumit').on('click', function () {
+            $('#action').val('updateorder')
+            $('#orderform').submit()
+        });
+
+
+
+        const data = dataSource('{% url 'B2C:tableapi' %}', 'GET', {action: 'getorderlisttablebtn'})
+
+
+        const Grid = tui.Grid;
+        Grid.applyTheme('default', {
+            cell: {
+                normal: {
+                    background: '#fff',
+                    border: '#222222',
+                    showVerticalBorder: true,
+                    showHorizontalBorder: true,
+                },
+                header: {
+                    background: '#DFDFDE',
+
+                },
+                selectedHeader: {
+                    background: '#e0e0e0'
+                }
+            }
+        });
+        Grid.setLanguage('ko')
+
+        const grid = orderlisttable(data)
+
+        grid.on('click', ev => {
+            if (ev.columnName === 'IDX') {
+                let tdmodal = $('#layerpop_order') // 타겟 모달
+                let getordernum = grid.getElement(ev.rowKey, ev.columnName).children[0].text //대상 주문번호
+                let url = '{% url 'B2C:tableapi' %}' //대상 url
+                modalajax(url, getordernum, tdmodal)
+            }
+        });
+
+        {#로딩 후 총 개수#}
+        grid.on('onGridUpdated', ev => {
+            $('#total_count').text(grid.getPaginationTotalCount())
+            let listnum = $('#listnum').val();
+            if (listnum === 'all') {
+                NWpagination(grid, grid.getPaginationTotalCount())
+            } else {
+                NWpagination(grid, listnum) // 현재 그리드 , 항목 수 통해 페이지 네이션바 조정
+            }
+        });
+
+        // 페이지 네이션 and  filter
+        $('#listnum').on('change', function () {
+            $('#total_count').text(grid.getPaginationTotalCount())
+            let listnum = $(this).val();
+            if (listnum === 'all') {
+                NWpagination(grid, grid.getPaginationTotalCount())
+            } else {
+                NWpagination(grid, listnum) // 현재 그리드 , 항목 수 통해 페이지 네이션바 조정
+            }
+
+
+        });
+
+        grid.on('afterFilter', ev => {
+            $('#total_count').text(grid.getPaginationTotalCount())
+            let listnum = $('#listnum').val();
+            if (listnum === 'all') {
+                NWpagination(grid, grid.getPaginationTotalCount())
+            } else {
+                NWpagination(grid, listnum) // 현재 그리드 , 항목 수 통해 페이지 네이션바 조정
+            }
+        });
+
+
+        grid.on('afterUnfilter', ev => {
+            $('#total_count').text(grid.getPaginationTotalCount())
+            let listnum = $('#listnum').val();
+            if (listnum === 'all') {
+                NWpagination(grid, grid.getPaginationTotalCount())
+            } else {
+                NWpagination(grid, listnum) // 현재 그리드 , 항목 수 통해 페이지 네이션바 조정
+            }
+        });
+
+        $(document).ready(function () {
+            $('.abox22').click()
+        })
+
+        $('.abox').on('click', function () {
+            $('.abox').attr('style', 'background: #FFFFFF')
+            $(this).attr('style', 'background: #d4d5d9;')
+            let state = $(this).attr('boxtype')
+            if (state === '22') {
+                $('#createworkbtn').show();
+            } else {
+                $('#createworkbtn').hide();
+            }
+            let data = {action: 'getorderlisttablebtn', state: state}
+            grid.readData(1, data, false)
+            let listnum = $('#listnum').val();
+            if (listnum === 'all') {
+                NWpagination(grid, grid.getPaginationTotalCount())
+            } else {
+                NWpagination(grid, listnum) // 현재 그리드 , 항목 수 통해 페이지 네이션바 조정
+            }
+        })
+
+        // 검색창쪽
+        $('#searchbtn').on('click', function () {
+            $('.abox').attr('style', 'background: #FFFFFF')
+            $('#createworkbtn').hide();
+            const arr = $('#searchform').serializeArray()
+            const obj = {}
+            let statelist = []
+            $.each(arr, function () {
+                if (this.value && this.name !== 'statecheckbox') {
+                    obj[this.name] = this.value
+                } else if (this.value && this.name === 'statecheckbox') {
+                    statelist.push(this.value)
+                }
+            })
+            obj['statelist'] = statelist
+            obj['action'] = 'searchdata'
+            grid.readData(1, obj, true) // 데이터 요청
+
+        })
+
+        //체크 박스컨트롤
+        $("#statecheckboxall").click(function () {
+            if ($("#statecheckboxall").is(":checked")) $("input[name=statecheckbox]").prop("checked", true);
+            else $("input[name=statecheckbox]").prop("checked", false);
+        });
+
+        $("input[name=statecheckbox]").click(function () {
+            var total = $("input[name=statecheckbox]").length;
+            var checked = $("input[name=statecheckbox]:checked").length;
+
+            if (total !== checked) $("#statecheckboxall").prop("checked", false);
+            else $("#statecheckboxall").prop("checked", true);
+        });
+
+        // 상태 변경
+
+        $('.postdataBtn').on('click', function () {
+            let user = '{{ user.username }}';
+            let now = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, '');
+            let state = $(this).val()
+            let arr = grid.getCheckedRows()
+            let idlist = []
+            $.each(arr, function () {
+                idlist.push(this.id)
+            })
+
+            let alr = confirm(`확인자 : ${user}\n시간 : ${now}\n${idlist.length}건 ${state} 처리 하시겠습니까?`)
+            if (alr) {
+                $.ajax({
+                    url: "{% url 'B2C:tableapi' %}",
+                    dataType: 'json',
+                    type: 'POST',
+                    data: {action: 'postdata', state: state, idlist: idlist, user: user},
+                    success: function (result) {
+                        console.log(result.result)
+                        if (result.result === 'true') {
+                            location.reload();
+                        }
+                    }
+
+                })
+            }
+        });
+
+    </script>
+
+{% endblock %}
+

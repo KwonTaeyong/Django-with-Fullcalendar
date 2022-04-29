@@ -1,0 +1,344 @@
+<div class="modal" id="layerpop_order">
+    <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
+        <div class="modal-content">
+            <!-- header -->
+            <div class="modal-header">
+                <!-- header title -->
+                <h4 class="modal-title">주문 등록</h4>
+            </div>
+            <section>
+                <form id="orderform" method="post" action='{% url 'B2C:tableapi' %}'>
+                    {% csrf_token %}
+                    <table class="table" id="memberTable">
+                        <colgroup>
+                            <col style="width:200px;">
+                        </colgroup>
+                        <input class="form-control" type="hidden" id="action" name="action">
+                        <input name="id" id="id" class="form-control" type="text" hidden>
+                        <td colspan="2" class="subtitle" style="font-weight: bolder">주문자 정보</td>
+                        <tbody>
+                        <th>주문 시간</th>
+                        <td>
+                            <div class="form-inline">
+                                <input disabled class="form-control" type="datetime-local" id="ORDER_DATE"
+                                       name="ORDER_DATE">
+                            </div>
+                        </td>
+                        </tr>
+                        <tr class="writeTr">
+                            <th>쇼핑몰명</th>
+                            <td>
+                                <input disabled type="text" class="form-control" name="MALL_ID" id="MALL_ID" value=""
+                                       size="40">
+                            </td>
+                        </tr>
+                        <tr class="writeTr">
+                            <th>주문자명</th>
+                            <td>
+                                <input disabled type="text" class="form-control" name="USER_NAME" id="USER_NAME"
+                                       value=""
+                                       size="40">
+                            </td>
+                        </tr>
+                        <tr class="writeTr">
+                            <th>주문자 연락처</th>
+                            <td>
+                                <input type="text" class="form-control" name="USER_CEL" id="USER_CEL" value=""
+                                       size="40">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>수취인</th>
+                            <td>
+                                <input type="text" class="form-control" name="RECEIVE_NAME" id="RECEIVE_NAME"
+                                       value="" size="40">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>수취인 연락처</th>
+                            <td>
+                                <input type="text" class="form-control" name="RECEIVE_CEL" id="RECEIVE_CEL"
+                                       value="" size="40">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>주소</th>
+                            <td>
+                                <input type="text" class="form-control" name="RECEIVE_ADDR" id="RECEIVE_ADDR"
+                                       value="" size="40">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>배송구분</th>
+                            <td>
+                                <input type="text" class="form-control" name="DELIVERY_METHOD_STR"
+                                       id="DELIVERY_METHOD_STR" value=""
+                                       size="40">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>배송비</th>
+                            <td>
+                                <input type="text" class="form-control" name="DELV_COST" id="DELV_COST" value=""
+                                       size="40">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>배송메세지</th>
+                            <td>
+                                <input type="text" class="form-control" name="DELV_MSG" id="DELV_MSG" value=""
+                                       size="40">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>출고일 지정</th>
+                            <td>
+                                <input type="date" class="form-control" id="HOPE_DELV_DATE"
+                                       name="HOPE_DELV_DATE">
+                            </td>
+                        </tr>
+                        </tbody>
+                        <td colspan="2" class="subtitle" style="font-weight: bolder">상품 정보</td>
+                        <tbody>
+                        <tr>
+                            <th>상품명</th>
+                            <td>
+                                <input disabled type="text" class="form-control" id="PRODUCT_NAME" name="PRODUCT_NAME">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>수량</th>
+                            <td>
+                                <input disabled type="text" class="form-control" id="P_EA" name="P_EA">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>주문금액</th>
+                            <td>
+                                <input disabled type="text" class="form-control" id="PAY_COST" name="PAY_COST">
+                            </td>
+                        </tr>
+                        </tbody>
+                        <td colspan="2" class="subtitle" style="font-weight: bolder">배송 정보</td>
+                        <tbody>
+                        <tr>
+                            <th>택배사</th>
+                            <td>
+                                <input type="text" class="form-control" id="DELIVERY_ID" name="DELIVERY_ID">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>운송장 번호</th>
+                            <td>
+                                <input type="text" class="form-control" id="INVOICE_NO" name="INVOICE_NO">
+                            </td>
+                        </tr>
+                        </tbody>
+                        <td colspan="2" class="subtitle" style="font-weight: bolder">운영자 기입란</td>
+                        <tbody>
+                        <tr>
+                            <th>사방넷 주문번호</th>
+                            <td>
+                                <input disabled type="text" class="form-control" id="IDX" name="IDX">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>쇼핑몰 주문번호</th>
+                            <td>
+                                <input disabled type="text" class="form-control" id="ORDER_ID" name="ORDER_ID">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>사방넷 주문상태</th>
+                            <td>
+                                <input disabled type="text" class="form-control" id="ORDER_STATUS" name="ORDER_STATUS">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>메모</th>
+                            <td>
+                                <input type="text" class="form-control" id="memo" name="memo">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </section>
+            <div class="modal-body">
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer">
+                <div type="button" class="btn btn-secondary btn-sm ordersumit">주문정보
+                    등록
+                </div>
+                <button id="bgcolor" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">닫기
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 계정 관리 모달 -->
+<div class="modal fade" id="idlist_order">
+    <div class="modal-dialog" style="max-width: 100%; width: 1000px; height: 800px; display: table;">
+        <div class="modal-content">
+            <!-- header -->
+            <div class="modal-header">
+                <!-- header title -->
+                <h4 class="modal-title">회원 등록</h4>
+            </div>
+            <section>
+                <div class="container my-3">
+                    <form method="post" action="{% url 'B2C:datalist' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username">사용자 이름</label>
+                            <input type="text" class="form-control" name="username" id="username"
+                                   value="{{ form.username.value|default_if_none:'' }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password1">비밀번호</label>
+                            <input type="password" class="form-control" name="password1" id="password1"
+                                   value="{{ form.password1.value|default_if_none:'' }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password2">비밀번호 확인</label>
+                            <input type="password" class="form-control" name="password2" id="password2"
+                                   value="{{ form.password2.value|default_if_none:'' }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="factory">명칭</label>
+                            <input type="text" class="form-control" name="factory" id="factory"
+                                   value="{{ form.email.value|default_if_none:'' }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">생성하기</button>
+                    </form>
+                </div>
+            </section>
+            <div class="modal-body">
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer">
+                <input type="button" class="btn btn-primary" value="둥록">
+                <button type="button" class="btn btn-secondary mx-1" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 카테고리 추가 모달 -->
+<div class="modal fade" id="category_order">
+    <div class="modal-dialog" style="max-width: 100%; width: 500px; height: 500px; display: table;">
+        <div class="modal-content">
+            <!-- header -->
+            <div class="modal-header">
+                <!-- header title -->
+                <h4 class="modal-title">카테고리 추가</h4>
+            </div>
+            <section>
+                <div class="container my-3">
+                    <form method="post" action="{% url 'B2C:datalist' %}">
+                        {% csrf_token %}
+                        <table class="table table-bordered" id="category_modal" style="text-align: center">
+                            <tbody>
+                            <tr>
+                                <th>카테고리</th>
+                                <td>
+                                    <input type="text" class="form-control" name="name" id="name" value="">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </section>
+            <div class="modal-body">
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer">
+                <input type="button" class="btn btn-primary" value="둥록">
+                <button type="button" class="btn btn-secondary mx-1" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 품목 추가 모달-->
+<div class="modal fade" id="product_order">
+    <div class="modal-dialog" style="max-width: 100%; width: 500px; height: 800px; display: table;">
+        <div class="modal-content">
+            <!-- header -->
+            <div class="modal-header">
+                <!-- header title -->
+                <h4 class="modal-title">품목 추가</h4>
+            </div>
+            <section>
+                <div class="container my-3">
+                    <form method="post" action="{% url 'B2C:datalist' %}">
+                        {% csrf_token %}
+                        <table class="table table-bordered" id="product_modal" style="text-align: center">
+                            <tbody>
+                            <tr>
+                                <th>품목</th>
+                                <td>
+                                    <input type="text" class="form-control" name="name" id="name">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>포장</th>
+                                <td>
+                                    <select class="form-control" name="packing" id="packing" value="">
+                                        {% for iloc in packing_list %}
+                                            <option value="{{ iloc.id }}">{{ iloc.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>생산공장</th>
+                                <td>
+                                    <select class="form-control" name="pdfactory" id="pdfactory" value="">
+                                        {% for iloc in factory_list %}
+                                            <option value="{{ iloc.id }}">{{ iloc.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>출하공장</th>
+                                <td>
+                                    <select class="form-control" name="smfactory" id="smfactory" value="">
+                                        {% for iloc in factory_list %}
+                                            <option value="{{ iloc.id }}">{{ iloc.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>합포장 상태</th>
+                                <td>
+{#                                    {% for iloc in product_list %}#}
+                                        <input type="radio" name="sumpacking" id="sumpacking" value="true"> 합포장 불가
+                                        <input type="radio" name="sumpacking" id="sumpacking" value="false"> 합포장 가능
+{#                                    {% endfor %}#}
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </section>
+            <div class="modal-body">
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer">
+                <input type="button" class="btn btn-primary" value="둥록">
+                <button type="button" class="btn btn-secondary mx-1" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>

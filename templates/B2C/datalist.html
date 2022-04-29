@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="maincon">
+        <!-- header -->
+        <div class="pagetitle">
+            <span>품목정보 관리</span>
+            <div style="float: right">
+                <button data-bs-target="#category_order" data-bs-toggle="modal" type="button" style="float: right">카테고리
+                    추가
+                </button>
+                <button data-bs-target="#product_order" data-bs-toggle="modal" type="button" style="float: right">품목
+                    추가
+                </button>
+            </div>
+        </div>
+
+
+        <div class="con" style="display: inline-block;">
+            <div class="pagetitle">
+                <small>카테고리 관리</small>
+            </div>
+            <div style="width: 40%; height: 300px; border: 1px solid #FFFFFF; float: right;">
+                <div id="grid2">
+
+                </div>
+            </div>
+
+            <div style="width: 40%; height: 300px; border: 1px solid #FFFFFF; float: left;">
+                <div id="grid">
+
+                </div>
+            </div>
+
+            <div style="width: 5%; height: 100px; border: 1px solid #FFFFFF; float: left;
+            position: absolute; left: 48%; top: 45%">
+                <i style="color: #2a3954" class="fa-solid fa-circle-arrow-right fa-6x"></i>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div>
+    {% include 'B2C/ordermodal.html' %}
+    </div>
+
+
+
+{% endblock %}
+
+{% block script %}
+
+    <script type='text/javascript'>
+
+        const Grid = tui.Grid;
+        Grid.applyTheme('default', {
+            cell: {
+                normal: {
+                    background: '#fff',
+                    border: '#222222',
+                    showVerticalBorder: true,
+                    showHorizontalBorder: true,
+                },
+                header: {
+                    background: '#DFDFDE',
+
+                },
+                selectedHeader: {
+                    background: '#e0e0e0'
+                }
+            }
+        })
+        Grid.setLanguage('ko')
+
+        const data = dataSource('{% url 'B2C:gridtableapi' %}', 'GET', {action: 'categorygrid'})
+        const grid = categorytable(data)
+
+        const data2 = dataSource('{% url 'B2C:gridtableapi' %}', 'GET', {action: 'productgrid'})
+        const grid2 = producttable(data2)
+
+        grid.on('click', ev => {
+
+            if (ev.columnName === 'product') {
+                let catid = grid.getRow(ev.rowKey).id
+                rdata = {action: 'productgrid', catid: catid}
+                grid2.readData(1, rdata, false)
+            }
+        });
+
+    </script>
+
+{% endblock %}

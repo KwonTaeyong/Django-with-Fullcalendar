@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="maincon">
+        <!-- header -->
+        <div class="pagetitle">
+            <span>작업 관리</span>
+        </div>
+
+        <div class="con">
+            <table style="width: 100%;">
+                <tr style="font-weight: bold; font-size: large">
+                    <td></td>
+                    <td>No</td>
+                    <td>유저</td>
+                    <td>시간</td>
+                    <td>데이터</td>
+                </tr>
+                <hr>
+                <tbody id="orderListBody">
+                {% for data in work_list %}
+                    <tr class="top logboxcheckd">
+                        <td><input type="checkbox" name="logbox" id={{ data.id }} checked onclick="return false"></td>
+                        <td rowspan="1">{{ forloop.counter }}</td>
+                        <td rowspan="1">{{ data.checker }}</td>
+                        <td rowspan="1">{{ data.check_time }}</td>
+                        <td class="greenHilight">{{ data.order.count }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <hr>
+        </div>
+        <div class="con">
+            <span>선택한 데이터 보기 : </span>
+            <div class="btn btn-secondary" id="gridbtn2">목록형</div>
+            <div class="btn btn-secondary" id="gridbtn3">텍스트형</div>
+            <div class="btn btn-secondary" id="gridbtn"><i class="bi bi-arrow-repeat"></i></div>
+        </div>
+
+        <div class="con congrid">
+            <div id="grid"></div>
+        </div>
+
+        <div class="con congrid2" style="display: none">
+            <div id="grid2">list 형</div>
+        </div>
+
+        <div class="con congrid3" style="display: none">
+            <div id="grid3">목록 형</div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block script %}
+
+    <script type='text/javascript'>
+
+    $(".logboxcheckd").on('click', function () {
+        if ($(this).find("input:checkbox[name=logbox]").is(':checked')){
+            $(this).find("input:checkbox[name=logbox]").prop('checked', false)
+        } else {
+            $(this).find("input:checkbox[name=logbox]").prop('checked', true)
+        }
+
+        $('.congrid').show()
+            $('.congrid2').hide()
+            $('.congrid3').hide()
+
+            let idlist = readyidlist()
+
+            let data = {action: 'getworklisttable', idlist: idlist}
+            grid.readData(1, data, false)
+    })
+
+
+        const Grid = tui.Grid;
+
+        Grid.applyTheme('default', {
+            cell: {
+                normal: {
+                    background: '#fff',
+                    border: '#222222',
+                    showVerticalBorder: true,
+                    showHorizontalBorder: true,
+                },
+                header: {
+                    background: '#DFDFDE',
+
+                },
+                selectedHeader: {
+                    background: '#e0e0e0'
+                }
+            }
+        });
+        Grid.setLanguage('ko')
+
+
+        let idlist = readyidlist()
+
+        const griddatasource = dataSource('{% url 'B2C:gridtableapi' %}', 'GET', {action: 'getworklisttable', idlist: idlist}
+        )
+        const grid = workmaintable(griddatasource)
+
+
+        const grid2datasource = dataSource('{% url 'B2C:gridtableapi' %}', 'GET', {action: 'getgridlistdata'})
+        const grid2 = worklisttable(grid2datasource)
+
+        // 선택 메뉴
+        $('#gridbtn').on('click', function () {
+            if ($('.congrid').is(':visible')) {
+
+            } else {
+                $('.congrid').show()
+                $('.congrid2').hide()
+                $('.congrid3').hide()
+                grid.refreshLayout()
+            }
+        })
+
+        // 텍스트형
+        $('#gridbtn3').on('click', function () {
+            if ($(".congrid3").is(':visible')) {
+
+            } else {
+                $('.congrid3').show()
+                $('.congrid2').hide()
+                $('.congrid').hide()
+            }
+        })
+
+        // 리스트 형
+        $('#gridbtn2').on('click', function () {
+            if ($('.congrid2').is(':visible')) {
+
+
+
+            } else {
+                $('.congrid2').show()
+                $('.congrid3').hide()
+                $('.congrid').hide()
+                let arr = grid.getCheckedRows()
+                let idlist = []
+                $.each(arr, function () {
+                    idlist.push(this.id)
+                })
+
+                let data = {action: 'getgridlistdata', idlist: idlist}
+                grid2.readData(1, data, false)
+                grid2.refreshLayout()
+            }
+        })
+
+
+    </script>
+
+{% endblock %}
