@@ -91,13 +91,10 @@ class Calendar(models.Model):
      allday = models.BooleanField()
 
 
-#
-# class User(models.Model):
-#     user_id = models.CharField(max_length=45),
-#     name = models.CharField(max_length=45),
-#     password = models.CharField(max_length=400),
-#     password2 = models.CharField(max_length=400),
-#
-#     class Meta:
-#         db_table = 'users'
-#
+
+class User(models.Model):
+    user_id = models.CharField(max_length=45),
+    name = models.CharField(max_length=45),
+    password = models.CharField(max_length=400),
+    password2 = models.CharField(max_length=400),
+

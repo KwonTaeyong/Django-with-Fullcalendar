@@ -132,22 +132,22 @@
                 eventClick: function (info) {
                     info.jsEvent.stopPropagation();
                     info.jsEvent.preventDefault();
-                    if (confirm("일정 '" + info.event.title + " '삭제하시겠습니까?")) {
-                        info.event.remove();
+                    if (confirm("'" + info.event.title + "'을 삭제하시겠씁니까?")) {
+                        info.event.remove()
+                    }
+                    console.log(info.event)
 
-                        console.log(info.event)
-                    }
-                    function deleteDate() {
-                        $.ajax({
-                            url: "{% url 'B2C:etclist' %}",
-                            dataType: 'json',
-                            method: "DELETE",
-                            data: {{ test|safe }},
-                            success: function (result) {
-                                alert('삭제되었습니다.')
-                            }
-                        })
-                    }
+                    let title = info.event._def.title;
+                    let start = info.event._instance.range.start;
+                    let end = info.event._instance.range.end;
+                    let tgid = info.event._def.extendedProps.tgid;
+
+                    $.ajax({
+                        url: "{% url 'B2C:etclist' %}",
+                        method: "POST",
+                        dataType: "json",
+                        data: {action: 'test', title: title, start: start, end: end, tgid:tgid}
+                    })
                 },
             });
 

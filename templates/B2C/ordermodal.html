@@ -192,8 +192,8 @@
                     <form method="post" action="{% url 'B2C:datalist' %}">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <label for="username">사용자 이름</label>
-                            <input type="text" class="form-control" name="username" id="username"
+                            <label for="user_id">사용자</label>
+                            <input type="text" class="form-control" name="user_id" id="user_id"
                                    value="{{ form.username.value|default_if_none:'' }}">
                         </div>
                         <div class="mb-3">
@@ -207,20 +207,16 @@
                                    value="{{ form.password2.value|default_if_none:'' }}">
                         </div>
                         <div class="mb-3">
-                            <label for="factory">명칭</label>
-                            <input type="text" class="form-control" name="factory" id="factory"
+                            <label for="name">명칭</label>
+                            <input type="text" class="form-control" name="name" id="name"
                                    value="{{ form.email.value|default_if_none:'' }}">
                         </div>
                         <button type="submit" class="btn btn-primary">생성하기</button>
+                        <button type="button" class="btn btn-secondary mx-1" data-bs-dismiss="modal">닫기</button>
                     </form>
                 </div>
             </section>
             <div class="modal-body">
-            </div>
-            <!-- Footer -->
-            <div class="modal-footer">
-                <input type="button" class="btn btn-primary" value="둥록">
-                <button type="button" class="btn btn-secondary mx-1" data-bs-dismiss="modal">닫기</button>
             </div>
         </div>
     </div>
